@@ -24,29 +24,11 @@ server.on('request',	function(req,	res){
 
 		req.on('data',	function(data){	
 				body	=	body	+	data.toString();	
-
-				/**
-				*	Aufgabe 4
-					---------
-				*/
-					if(req.method == 'POST'){	//Überprüfung ob Method(form) POST ist
-						//POST - Daten werden in eine Variable gespeichert(zur Übersicht)
-						//und an das PlanetenArray dran gehangen
-						var planetName = req.body.name;		
-						var planetDiameter = req.body.diameter;
-						var planetDistance = req.body.distance;
-
-						planeten[0].push(planetName);
-						planeten[1].push(planetDistance);
-						planeten[2].push(planetDiameter);
-
-						
-					}
 		});	
 
 		req.on('end',	function(){	
 				console.log('HTTP-Request	zu	Ende');	
-				var	daten	=	querystring.parse(body);	
+				var	data	=	querystring.parse(body);	
 				var	pfad	=	url.parse(req.url).pathname;
 				
 				/**
@@ -58,7 +40,7 @@ server.on('request',	function(req,	res){
 				if(pfad == '/planeten'){
 
 					console.log('Pfad:	'+pfad);	
-					console.log(daten);	
+					console.log(data);	
 
 					res.writeHead(200,	"OK",	{'Content-Type':	'text/html'});	
 					//res.write('Hallo	'+	daten.name);
@@ -82,13 +64,31 @@ server.on('request',	function(req,	res){
 					*/
 
 					res.write("<form action='http://localhost:8888/planeten' method='POST'>");
-					res.write("<br><br><br>Planetennamen: <input type='text' name='name'> <br>");
+					res.write("<br><br><br>Planetennamen: <input type='text' name='planet'> <br>");
 					res.write("Planetdurchmesser: <input type='text' name='diameter'> <br>");
 					res.write("Entfernung: <input type='text' name='distance'> <br>");
 					res.write("<input type='submit' value='SEND' >");
 					res.write("</form>");
 
 					res.write("</html></body>");
+
+					/**
+					*	Aufgabe 4
+					*	---------
+					*/
+					if(req.method == 'POST'){	//Überprüfung ob Method(form) POST ist
+						//POST - Daten werden in eine Variable gespeichert(zur Übersicht)
+						//und an das PlanetenArray dran gehangen
+						var planetName = data.planet;		
+						var planetDiameter = data.diameter;
+						var planetDistance = data.distance;
+
+						planeten[0].push(planetName);
+						planeten[1].push(planetDistance);
+						planeten[2].push(planetDiameter);
+
+						
+					}
 
 
 				}
