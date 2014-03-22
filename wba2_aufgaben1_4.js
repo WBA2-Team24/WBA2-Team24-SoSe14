@@ -1,3 +1,10 @@
+/**************************************************************
+*						Team 24
+*			Titel: WBA2 SoSe14 Aufgaben 1-4
+*					Thema: Node js
+*					Datum: 19.03.2014
+*	Mitglieder:Niklas Rose, Christian Grevenbrück, Sven B.
+***************************************************************/
 /**
 Deklaration eines Mehrdim Arrays in dem die Planetennamen, Durchmesser, Entfernung von der Erde stehen
 */
