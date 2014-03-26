@@ -7,21 +7,21 @@
 			{ "Planet":"document.getElementById("planet").value;" , "Entfernung":"document.getElementById("distance").value;" ,  "Durchmesser":"document.getElementById("diameter").value;" }
 			];
 
+	        event.preventDefault();
 	        $.ajax({
 	          	type: 'POST',
 	          	url: '/planeten',
 	          	data: JSON.stringify(data),
 	          	contentType: 'application/json',
 	          })
-	         event.preventDefault();
           });
     </script>
 </head>
 <body>
 	<form id='planets' action='http://localhost:3000/planeten' method='POST'>
-		<br><br><br>Planetennamen: <input type='text' id='planet'> <br>
-		Planetdurchmesser: <input type='text' id='diameter'> <br>
-		Entfernung: <input type='text' id='distance'> <br>
+		<br><br><br>Planetennamen: <input type='text' name='planet'> <br>
+		Planetdurchmesser: <input type='text' name='diameter'> <br>
+		Entfernung: <input type='text' name='distance'> <br>
 		<input type='submit' value='SEND' >
 	</form>
 </body>

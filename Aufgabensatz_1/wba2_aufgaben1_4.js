@@ -96,9 +96,9 @@ server.on('request',	function(req,	res){
 						var planetDiameter = data.diameter;
 						var planetDistance = data.distance;
 
-						planeten[0].push(planetName);
-						planeten[1].push(planetDistance);
-						planeten[2].push(planetDiameter);	
+						planeten.planet.push(planetName);
+						planeten.Entfernung.push(planetDistance);
+						planeten.Durchmesser.push(planetDiameter);	
 					}
 				}
 				res.end();	
