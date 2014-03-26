@@ -1,0 +1,28 @@
+<html>
+<head>
+	<script src=„http://code.jquery.com/jquery-1.11.0.min.js“></script>
+	<script type="text/javascript">
+        $("#planets").submit(function(event){
+        	var data = [
+			{ "Planet":"document.getElementById("planet").value;" , "Entfernung":"document.getElementById("distance").value;" ,  "Durchmesser":"document.getElementById("diameter").value;" }
+			];
+
+	        event.preventDefault();
+	        $.ajax({
+	          	type: 'POST',
+	          	url: '/planeten',
+	          	data: JSON.stringify(data),
+	          	contentType: 'application/json',
+	          })
+          });
+    </script>
+</head>
+<body>
+	<form id='planets' action='http://localhost:3000/planeten' method='POST'>
+		<br><br><br>Planetennamen: <input type='text' name='planet'> <br>
+		Planetdurchmesser: <input type='text' name='diameter'> <br>
+		Entfernung: <input type='text' name='distance'> <br>
+		<input type='submit' value='SEND' >
+	</form>
+</body>
+</html>
