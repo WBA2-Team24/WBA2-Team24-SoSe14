@@ -4,7 +4,9 @@
 	<script type="text/javascript">
         $("#planets").submit(function(event){
         	var data = [
-			{ "Planet":"document.getElementById("planet").value;" , "Entfernung":"document.getElementById("distance").value;" ,  "Durchmesser":"document.getElementById("diameter").value;" }
+			{ 	"Planet":"$("#planet").val();" ,
+			 	"Entfernung":"$("#distance").val();" ,
+			 	"Durchmesser":"$("#diameter").val();" }
 			];
 
 	        $.ajax({

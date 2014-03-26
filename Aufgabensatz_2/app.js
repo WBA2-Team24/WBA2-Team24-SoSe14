@@ -33,13 +33,8 @@ app.get('/planeten', function(req, res){
 	});
 
 app.post('/planeten', function(req, res){
-	var planetName = req.body.data.Planet;		
-	var planetDiameter = req.body.data.Durchmesser;
-	var planetDistance = req.body.data.Entfernung;
 
-	planeten.Planet.push(planetName);
-	planeten.Entfernung.push(planetDistance);
-	planeten.Durchmesser.push(planetDiameter);	
+	planeten.push(req.body);
 
 	req.end();
 
