@@ -8,10 +8,21 @@
 /**
 Deklaration eines Mehrdim Arrays in dem die Planetennamen, Durchmesser, Entfernung von der Erde stehen
 */
-planeten = new Array;
+
+var planeten = [
+{ "Planet":"Erde" , "Entfernung":"150 Mio" ,  "Durchmesser":"12734" },
+{ "Planet":"Venus" , "Entfernung":"108 Mio" ,  "Durchmesser":"12103" }, 
+{ "Planet":"Mars" , "Entfernung":"228 Mio" ,  "Durchmesser":"6772" }, 
+{ "Planet":"Jupiter" , "Entfernung":"778 Mio" ,  "Durchmesser":"138346" }, 
+{ "Planet":"Saturn" , "Entfernung":"1,433 Mrd" ,  "Durchmesser":"114632" }, 
+{ "Planet":"Uranus" , "Entfernung":"2,872 Mrd" ,  "Durchmesser":"50532" }, 
+{ "Planet":"Neptun" , "Entfernung":"4,495 Mrd" ,  "Durchmesser":"49105" },
+{ "Planet":"Merkur" , "Entfernung":"58 Mio" ,  "Durchmesser":"48789" }
+];
+/*planeten = new Array;
 planeten[0] = 	new Array("Erde", 	"Venus", 	"Mars", 	"Jupiter",	"Saturn", 		"Uranus", 		"Neptun", 	"Merkur");
 planeten[1] = new Array("150 Mio", 	"108 Mio", 	"228 Mio", 	"778 Mio", 	"1,433 Mrd", 	"2,872 Mrd", 	"4,495 Mrd","58 Mio");
-planeten[2]= new Array("12734",		"12103",	"6772"	,	"138346",	"114632",		"50532",		"49105",	"4879");
+planeten[2]= new Array("12734",		"12103",	"6772"	,	"138346",	"114632",		"50532",		"49105",	"4879");*/
 
 /*
 *	Webserver einrichten
@@ -54,13 +65,10 @@ server.on('request',	function(req,	res){
 					res.write("<html><body>");
 					res.write("<table>"); //erstellt in einem HTML Dokument ein Table-Tag
 
-					for (var i = 0; i < planeten.length; i++){	//schleife für jeweils eine Zeile durch hinzufügen des TR-Tags (HTML)
-						res.write("<tr>");
-						for (var j = 0; j < planeten[0].length ; j++){ //schleife für die Inhalte einer Zeile
-							res.write("<td>"+planeten[i][j]+"</td>")
-						}
-						res.write("</tr>"); 
-					}
+					res.write("<tr><th>Planeten</th><th>Entfernung zur Sonne</th><th>Durchmesser</th></tr>");
+                    planeten.forEach(function(planeten){
+                        res.write("<tr><td>" +planeten.Planet+  "</td><td>" +planeten.Entfernung+ "</td><td>" +planeten.Durchmesser+ "</td></tr>"); });
+                    
 					res.write("</table>"); //table wird geschlossen
 
 					/**
