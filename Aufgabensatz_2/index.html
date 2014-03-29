@@ -1,13 +1,29 @@
 <html>
 <head>
-	<script src=„http://code.jquery.com/jquery-1.11.0.min.js“></script>
-	<script type="text/javascript">
-        $("#planets").submit(function(event){
-        	var data = [
-			{ 	"Planet":"$("#planet").val();" ,
-			 	"Entfernung":"$("#distance").val();" ,
-			 	"Durchmesser":"$("#diameter").val();" }
-			];
+	 <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+</head>
+<body>
+	<form id='planets' name='planets' action='/planeten' method='POST'>
+		<br><br><br>Planetennamen: <input type='text' id='planet' name='planet'> <br>
+		Entfernung: <input type='text' id='distance' name='distance'> <br>
+		Planetdurchmesser: <input type='text' id='diameter' name='diameter'> <br>
+		<input type='submit' value='SEND' name='submit'>
+	</form>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
+        $("#planets").submit(function(event){	//wenn der Submit button in der Form "planets" geklickt wurde
+        	//anlegen eines JSON Arrays mit den aus den Textfeldern eingegeben werten
+        	var data = 
+			{ 	
+				planet: $('#planet').val() ,
+			 	entfernung: $('#distance').val() ,
+			 	durchmesser: $('#diameter').val() 
+			 };
+			 console.log("Inhalt:"+ data.entfernung);
 
 	        $.ajax({
 	          	type: 'POST',
@@ -16,19 +32,11 @@
 	          	contentType: 'application/json'
 	          }).done(function(){
 	          	alert(data.Planet+'wurde hinzugefügt!');
-	          }).fail(function(e){
-	          	alert(data.Planet+'ging leider nicht!!.('+JSON.stringify(e)+')');
+	          	 $('#planets')[0].reset();
+	          }).fail(function(event){
+	          	alert(data.Planet+'ging leider nicht!!.('+JSON.stringify(event)+')');
 	          });
 	         event.preventDefault();
           });
+     });
     </script>
-</head>
-<body>
-	<form id='planets' action='http://localhost:3000/planeten' method='POST'>
-		<br><br><br>Planetennamen: <input type='text' id='planet'> <br>
-		Planetdurchmesser: <input type='text' id='diameter'> <br>
-		Entfernung: <input type='text' id='distance'> <br>
-		<input type='submit' value='SEND' >
-	</form>
-</body>
-</html>

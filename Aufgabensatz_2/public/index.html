@@ -2,19 +2,29 @@
 <head>
 	<script src=„http://code.jquery.com/jquery-1.11.0.min.js“></script>
 	<script type="text/javascript">
+        $( document ).ready(function() {
         $("#planets").submit(function(event){
-        	var data = [
-			{ "Planet":"document.getElementById("planet").value;" , "Entfernung":"document.getElementById("distance").value;" ,  "Durchmesser":"document.getElementById("diameter").value;" }
-			];
+        	var data = 
+			{ 	Planet: $("#planet").val() ,
+			 	Entfernung:$("#distance").val() ,
+			 	Durchmesser:$("#diameter").val() 
+			 };
+			 console.log("Inhalt:"+ $("#planet").val());
 
-	        event.preventDefault();
 	        $.ajax({
 	          	type: 'POST',
 	          	url: '/planeten',
 	          	data: JSON.stringify(data),
-	          	contentType: 'application/json',
-	          })
+	          	contentType: 'application/json'
+	          }).done(function(){
+	          	alert(data.Planet+'wurde hinzugefügt!');
+	          	 $('#planets')[0].reset();
+	          }).fail(function(event){
+	          	alert(data.Planet+'ging leider nicht!!.('+JSON.stringify(event)+')');
+	          });
+	         event.preventDefault();
           });
+     });
     </script>
 </head>
 <body>

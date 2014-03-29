@@ -1,12 +1,12 @@
 var planeten = [
-{ "Planet":"Erde" , "Entfernung":"150 Mio" ,  "Durchmesser":"12734" },
-{ "Planet":"Venus" , "Entfernung":"108 Mio" ,  "Durchmesser":"12103" }, 
-{ "Planet":"Mars" , "Entfernung":"228 Mio" ,  "Durchmesser":"6772" }, 
-{ "Planet":"Jupiter" , "Entfernung":"778 Mio" ,  "Durchmesser":"138346" }, 
-{ "Planet":"Saturn" , "Entfernung":"1,433 Mrd" ,  "Durchmesser":"114632" }, 
-{ "Planet":"Uranus" , "Entfernung":"2,872 Mrd" ,  "Durchmesser":"50532" }, 
-{ "Planet":"Neptun" , "Entfernung":"4,495 Mrd" ,  "Durchmesser":"49105" },
-{ "Planet":"Merkur" , "Entfernung":"58 Mio" ,  "Durchmesser":"48789" }
+{ planet:"Erde" , entfernung:"150 Mio" ,  durchmesser:"12734" },
+{ planet:"Venus" , entfernung:"108 Mio" ,  durchmesser:"12103" }, 
+{ planet:"Mars" , entfernung:"228 Mio" ,  durchmesser:"6772" }, 
+{ planet:"Jupiter" , entfernung:"778 Mio" ,  durchmesser:"138346" }, 
+{ planet:"Saturn" , entfernung:"1,433 Mrd" ,  durchmesser:"114632" }, 
+{ planet:"Uranus" , entfernung:"2,872 Mrd" ,  durchmesser:"50532" }, 
+{ planet:"Neptun" , entfernung:"4,495 Mrd" ,  durchmesser:"49105" },
+{ planet:"Merkur" , entfernung:"58 Mio" ,  durchmesser:"48789" }
 ];
 
 var express = require('express');
@@ -21,22 +21,23 @@ app.configure(function(){
 });
 
 app.get('/planeten', function(req, res){
+		res.writeHead(200, "OK");
 		res.write("<html><body>");
 		res.write("<table>"); //erstellt in einem HTML Dokument ein Table-Tag
 
 		res.write("<tr><th>Planeten</th><th>Entfernung zur Sonne</th><th>Durchmesser</th></tr>");
         planeten.forEach(function(planeten){
-        res.write("<tr><td>" +planeten.Planet+  "</td><td>" +planeten.Entfernung+ "</td><td>" +planeten.Durchmesser+ "</td></tr>"); });
+        res.write("<tr><td>" +planeten.planet+  "</td><td>" +planeten.entfernung+ "</td><td>" +planeten.durchmesser+ "</td></tr>"); });
                     
 		res.write("</table>"); //table wird geschlossen
 		res.end();
 	});
 
 app.post('/planeten', function(req, res){
-
+	console.log("JSON Inhalt:"+req.body.entfernung);
 	planeten.push(req.body);
-
-	req.end();
+	res.writeHead(200);
+	res.end();
 
 });
 app.listen(3000);
