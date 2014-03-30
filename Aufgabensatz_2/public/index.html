@@ -9,6 +9,7 @@
 		Planetdurchmesser: <input type='text' id='diameter' name='diameter'> <br>
 		<input type='submit' value='SEND' name='submit'>
 	</form>
+	<a href='/planeten'>Tabelle ansehen!</a>
 </body>
 </html>
 
@@ -31,10 +32,10 @@
 	          	data: JSON.stringify(data),	//Datentyp der zu übertragenden Daten
 	          	contentType: 'application/json'
 	          }).done(function(){	//wenn alles funktioniert hat..
-	          	alert(data.Planet+'wurde hinzugefügt!');	
+	          	alert(data.planet+' wurde hinzugefügt!');	
 	          	 $('#planets')[0].reset();	//setzt das Formular zurück
 	          }).fail(function(event){	//wenn übertragung fehlgeschlagen ist..
-	          	alert(data.Planet+'ging leider nicht!!.('+JSON.stringify(event)+')');
+	          	alert(data.planet+' ging leider nicht!!.('+JSON.stringify(event)+')');
 	          });
 	         event.preventDefault();
           });

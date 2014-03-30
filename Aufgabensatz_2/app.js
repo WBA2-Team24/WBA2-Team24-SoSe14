@@ -21,6 +21,8 @@ app.configure(function(){
 
 });
 
+app.set('port', 3000);
+
 app.get('/planeten', function(req, res){
 		res.writeHead(200, "OK");
 		res.write("<html><body>");
@@ -41,4 +43,6 @@ app.post('/planeten', function(req, res){
 	res.end();
 
 });
-app.listen(3000);
+app.listen(app.get('port'), function(){
+	console.log('Server horcht am Port: ' + app.get('port'));
+});
