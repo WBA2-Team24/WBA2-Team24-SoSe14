@@ -1,3 +1,7 @@
+var http = require('http');
+var express = require('express');
+var app = express();
+
 var planeten = [
 { planet:"Erde" , entfernung:"150 Mio" ,  durchmesser:"12734" },
 { planet:"Venus" , entfernung:"108 Mio" ,  durchmesser:"12103" }, 
@@ -9,13 +13,10 @@ var planeten = [
 { planet:"Merkur" , entfernung:"58 Mio" ,  durchmesser:"48789" }
 ];
 
-var express = require('express');
-var app = express();
-
 app.configure(function(){
 	
-	app.use(express.static(__dirname + '/public'));
-	app.use(express.json());
+	app.use(express.static(__dirname + '/public'));	//setzt /public als default Ordner
+	app.use(express.json());		//beim request wird ein JSON objekt geparsed
 	app.use(express.urlencoded());
 
 });
@@ -35,7 +36,7 @@ app.get('/planeten', function(req, res){
 
 app.post('/planeten', function(req, res){
 	console.log("JSON Inhalt:"+req.body.entfernung);
-	planeten.push(req.body);
+	planeten.push(req.body);	//pushed die Formulareingabe in das JSON-Array
 	res.writeHead(200);
 	res.end();
 

@@ -15,7 +15,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
-        $("#planets").submit(function(event){	//wenn der Submit button in der Form "planets" geklickt wurde
+        $('#planets').submit(function(event){	//wenn der Submit button in der Form "planets" geklickt wurde
         	//anlegen eines JSON Arrays mit den aus den Textfeldern eingegeben werten
         	var data = 
 			{ 	
@@ -24,16 +24,16 @@
 			 	durchmesser: $('#diameter').val() 
 			 };
 			 console.log("Inhalt:"+ data.entfernung);
-
+			 //AJAX - Methode um einen POST zum Server zu schicken
 	        $.ajax({
-	          	type: 'POST',
-	          	url: '/planeten',
-	          	data: JSON.stringify(data),
+	          	type: 'POST', 	//gibt den typ an
+	          	url: '/planeten',	//an welche url
+	          	data: JSON.stringify(data),	//Datentyp der zu übertragenden Daten
 	          	contentType: 'application/json'
-	          }).done(function(){
-	          	alert(data.Planet+'wurde hinzugefügt!');
-	          	 $('#planets')[0].reset();
-	          }).fail(function(event){
+	          }).done(function(){	//wenn alles funktioniert hat..
+	          	alert(data.Planet+'wurde hinzugefügt!');	
+	          	 $('#planets')[0].reset();	//setzt das Formular zurück
+	          }).fail(function(event){	//wenn übertragung fehlgeschlagen ist..
 	          	alert(data.Planet+'ging leider nicht!!.('+JSON.stringify(event)+')');
 	          });
 	         event.preventDefault();
