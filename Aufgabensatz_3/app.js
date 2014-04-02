@@ -7,6 +7,8 @@ db.bind("planeten");
 
 var planetsCollection = db.planeten;
 
+
+
 /*var planeten = [
 { planet:"Erde" , entfernung:"150 Mio" ,  durchmesser:"12734" },
 { planet:"Venus" , entfernung:"108 Mio" ,  durchmesser:"12103" }, 
