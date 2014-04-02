@@ -1,0 +1,29 @@
+<html>
+<head>
+	 <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	 <script type="text/javascript">
+
+	$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
+     
+			 //AJAX - Methode um einen POST zum Server zu schicken
+	        $.ajax({
+	          	type: 'POST', 	//gibt den typ an
+	          	url: '/planeten',	//an welche url
+	          	data: JSON.stringify(data),	//Datentyp der zu übertragenden Daten
+	          	contentType: 'application/json'
+	          }).done(function(){	//wenn alles funktioniert hat..
+	          	alert(data.planet+' wurde hinzugefügt!');	
+	          	 
+	          }).fail(function(event){	//wenn übertragung fehlgeschlagen ist..
+	          	alert(data.planet+' ging leider nicht!!.('+JSON.stringify(event)+')');
+	          });
+	         event.preventDefault();
+          });
+     });
+    </script>
+</head>
+<body>
+	
+</body>
+</html>
+
