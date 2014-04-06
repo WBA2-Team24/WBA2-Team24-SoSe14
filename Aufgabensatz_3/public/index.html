@@ -1,6 +1,14 @@
 <html>
 <head>
 	 <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	 <script type="text/javascript" src="/faye/clients.js"> </script>
+	  <script type="text/javascript">
+	  	var client = new Faye.Client('/faye');
+
+	  	var subscription = client.subscribe('/planeten', function(message){
+	  		addTableRow(message);
+	  	});
+	  </script>
 	 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -26,24 +34,41 @@
 	$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
      
 			 //AJAX - Methode um einen POST zum Server zu schicken
-	        $.ajax({
-	          	type: 'POST', 	//gibt den typ an
-	          	url: '/planeten',	//an welche url
-	          	data: JSON.stringify(data),	//Datentyp der zu übertragenden Daten
+	    var request = $.ajax({
+	          	type: 'GET', 	//gibt den typ an
+	          	url: '/planeten',	//an welche url Datentyp der zu übertragenden Daten
 	          	contentType: 'application/json'
-	          }).done(function(){	//wenn alles funktioniert hat..
-	          	alert(data.planet+' wurde hinzugefügt!');	
-	          	 
-	          }).fail(function(event){	//wenn übertragung fehlgeschlagen ist..
-	          	alert(data.planet+' ging leider nicht!!.('+JSON.stringify(event)+')');
 	          });
-	         event.preventDefault();
+
+	          request.done(function(data){	//wenn alles funktioniert hat..
+	          		data.forEach(function(planeten){	//foreach -SChleife, die die Tabelleneinträge schreibt
+	          			addTableRow(planeten); //Aufruf der Funktion addTableRow()
+	          			console.log(planeten);
+	          		})
+	          	 
+	          });
+	          request.fail(function(event){	//wenn übertragung fehlgeschlagen ist..
+	          	alert(' ging leider nicht!!');
+	          });
           });
-     });
+
+	function addTableRow(planeten){
+		//fügt eine Zeile aus der Datenbank(planeten JSON) in die Tabelle ein
+		//find() sucht HTML - Tags
+		//append() fügt Daten hinzu(Text/HTML -Tags usw.)
+			var planetTable = $('#planeten');
+			planetTable.find('tbody').first().append('<tr><td>'+planeten.planet+'</td><td>'+planeten.entfernung+'</td><td>'+planeten.durchmesser+'</td></tr>');
+			}
     </script>
 </head>
 <body>
-	
+	<table id='planeten' border='1'>
+		<thead>
+			<th> Planet </th> <th>Entfernung zu Sonne</th> <th>Durchmesser</th>
+		</thead>
+		<tbody>
+
+		</tbody>
 </body>
 </html>
 

@@ -1,0 +1,43 @@
+<html>
+<head>
+	 <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	 <script type="text/javascript">
+
+	$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
+        $('#planets').submit(function(event){	//wenn der Submit button in der Form "planets" geklickt wurde
+        	//anlegen eines JSON Arrays mit den aus den Textfeldern eingegeben werten
+        	var data = 
+			{ 	
+				planet: $('#planet').val() ,
+			 	entfernung: $('#distance').val() ,
+			 	durchmesser: $('#diameter').val() 
+			 };
+			 console.log("Inhalt:"+ data.entfernung);
+			 //AJAX - Methode um einen POST zum Server zu schicken
+	        $.ajax({
+	          	type: 'POST', 	//gibt den typ an
+	          	url: '/planeten',	//an welche url
+	          	data: JSON.stringify(data),	//Datentyp der zu übertragenden Daten
+	          	contentType: 'application/json'
+	          }).done(function(){	//wenn alles funktioniert hat..
+	          	alert(data.planet+' wurde hinzugefügt!');	
+	          	 $('#planets')[0].reset();	//setzt das Formular zurück
+	          }).fail(function(event){	//wenn übertragung fehlgeschlagen ist..
+	          	alert(data.planet+' ging leider nicht!!.('+JSON.stringify(event)+')');
+	          });
+	         event.preventDefault();
+          });
+     });
+    </script>
+</head>
+<body>
+	<form id='planets' name='planets' action='/planeten' method='POST'>
+		<br><br><br>Planetennamen: <input type='text' id='planet' name='planet'> <br>
+		Entfernung: <input type='text' id='distance' name='distance'> <br>
+		Planetdurchmesser: <input type='text' id='diameter' name='diameter'> <br>
+		<input type='submit' value='SEND' name='submit'>
+	</form>
+	<a href='/planeten'>Tabelle ansehen!</a>
+	
+</body>
+</html>
