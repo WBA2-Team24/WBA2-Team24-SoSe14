@@ -3,7 +3,7 @@ var app = express();
 var mongoDB = require('mongoskin');
 var db = mongoDB.db('mongodb://localhost/planeten', {safe: true});
 
-db.bind("planeten");
+
 
 var planetsCollection = db.planeten;
 
@@ -20,7 +20,7 @@ var planetsCollection = db.planeten;
 { planet:"Merkur" , entfernung:"58 Mio" ,  durchmesser:"48789" }
 ];
 */
-app.configure(function(){
+app.configure(function () {
 	
 	app.use(express.static(__dirname + '/public'));	//setzt /public als default Ordner
 	app.use(express.json());		//beim request wird ein JSON objekt geparsed
@@ -28,7 +28,7 @@ app.configure(function(){
 
 });
 
-app.use(function(error, request, response, next){
+app.use(function (error, request, response, next){
 	console.error(error.stack);
 	response.end(error.messages);
 });
