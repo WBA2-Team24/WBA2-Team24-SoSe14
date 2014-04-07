@@ -8,28 +8,8 @@
 	  	var subscription = client.subscribe('/planeten', function(message){
 	  		addTableRow(message);
 	  	});
-	  </script>
+	 </script>
 	 <script type="text/javascript">
-
-	$(document).ready(function() {
-	 
-		var request = $.ajax({
-			type:'GET',
-			url: 'http://localhost:3000/planeten',
-			contentType: 'application/json',
-		});
-		
-		request.done(function(planetenjson){
-		planetenjson.forEach(function(planeten){
-			addTableRow(planeten);
-			});
-			
-		});
-	 
-		request.fail(function(err){
-			alert("Irgendwas ist schief gegangen");
-		});
-	});
 	 
 	$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
      
