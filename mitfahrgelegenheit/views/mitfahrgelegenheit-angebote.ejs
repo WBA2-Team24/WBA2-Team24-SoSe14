@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<script type="text/javascript" src="ejs_production.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script> 
+		<script src="scripts/geocomplete.js"></script>
+		<script src="scripts/autocomplete.js"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+		<script type="text/javascript">
+      		$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
+      
+ 			 //AJAX - Methode um einen POST zum Server zu schicken
+	 	    var request = $.ajax({
+	 	          	type: 'GET', 	//gibt den typ an
+	 	          	url: '/mitfahrgelegenheit-finden',	//an welche url Datentyp der zu übertragenden Daten
+	 	          	contentType: 'application/json'
+	 	          });
+	 	});
+
+		
+
+		</script>
+
+		 <title><%= title %></title>
+	</head>
+	<body>
+		<header>
+			<h1>Mitfahgelegenheit gesucht?</h1>
+			<nav>
+				<ul>
+					<% navigation.forEach(function(navi){ 
+						if(navi.name == "suche")
+							var naviclass = "suche"
+						else
+							naviclass = "angebot"%>
+					    <li><a href="/<%- navi.name %>" class="<%= naviclass %>"><%- navi.name %></a></li>
+					<% }) %>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<% if(search){ %>
+			<div class='content'>Mitfahrgelegenheits- Angebote zu Ihrer Suche </div>
+
+			<table border='1' id='fahrten' class="results">
+				<thead>
+ 					<th>Von</th> <th>Nach</th> <th>Datum</th><th>Uhrzeit</th><th>Fahrzeug</th><th>Sitze</th>
+ 				</thead>
+		 		<tbody>
+		 			<% 	search.forEach(function(anfrage){ %>
+							    <tr> 
+							    	<td><%- anfrage.from %></td>
+							    	<td><%- anfrage.to %></td>
+							    	<td><%- anfrage.date %></td>
+							    	<td><%- anfrage.time %></td>
+							    	<td><%- anfrage.vehicle %></td>
+							    	<td><%- anfrage.seats %></td>
+							    	<td><a href="/detailansicht/<%- anfrage.id %>">Details</a><</td>
+
+							    </tr>
+					<% });} else{ %>
+				<div class='content'>Keine Suchergebnisse... </div>
+				<% } %>
+		 		</tbody>
+			</table>
+			
+		</section>
+		<footer>
+
+		</footer>
+	</body>
+</html>

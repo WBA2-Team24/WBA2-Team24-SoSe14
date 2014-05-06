@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<script type="text/javascript" src="ejs_production.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="scripts/geocomplete.js"></script>
+		<script src="scripts/autocomplete.js"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+		<script type="text/javascript">
+		
+			 $(document).ready(function() {
+	            var formular = $('#search');
+	            //Submit-Handler für das Forumlar
+	            $(formular).submit(function() {
+	                
+	                //Default-Action des Formulars wird unterbunden
+	                event.preventDefault();
+	                
+	                //Datenobjekt zusammenbauen
+	                var data = {
+	                    from: $('#from').val(),
+	                    to: $('#to').val()
+	                };
+	                
+	                //Ajax-Request mit POST auf die Ressource mitfahrgelegenheit-angebote
+	                var request = $.ajax({
+	                    type: 'POST',
+	                    url: '/mitfahrgelgenheit-finden',
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json'
+	                });
+	                request.done(function(response, status, header){
+	                    alert(data.from+"  "+data.to' wird gesucht.');
+	                    //Formulardaten löschen
+	                	formular.get(0).reset();
+	                });
+	                request.fail(function(e){
+	                    alert(data.from+"  "+data.to' konnte nicht gefunden werden');
+	                });
+	                
+	                event.preventDefault();
+	            });
+	        });
+		</script>
+
+		 <title><%= title %></title>
+	</head>
+	<body>
+		<header>
+			<h1>Mitfahgelegenheit gesucht?</h1>
+			<nav>
+				<ul>
+					<% navigation.forEach(function(navi){ 
+						if(navi.name == "suche")
+							var naviclass = "suche"
+						else
+							naviclass = "angebot"%>
+				    <li><a href="/<%- navi.name %>" class="<%= naviclass %>"><%- navi.name %></a></li>
+					<% }) %>
+				</ul>
+			</nav>
+		</header>	
+		<section>
+			<div class='content'>Geben Sie hier direkt ein, wenn Sie eine Mitfahrgelegenheit suchen </div>
+			<form action='/mitfahrgelegenheit-finden' method='POST' class='search-form' id='search'>
+				<input type='text' id='from' name='from' placeholder='Von' class='search-from'>
+				<input type='text' id='to' name='to' placeholder='Nach' class='search-to'>
+				<button type='submit' id='s_submit' class='find_button'>Finden</button>		
+			</form>
+		</section>
+		<footer>
+
+		</footer>
+	</body>
+</html>

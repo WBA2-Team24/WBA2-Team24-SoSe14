@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<script type="text/javascript" src="ejs_production.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="scripts/geocomplete.js"></script>
+		<script src="scripts/autocomplete.js"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+		<script type="text/javascript">
+		function changeIt(){
+			var slider_price = $('#price');
+		    var	textbox_price = $('#price_res');
+		    var slider_seats = $('#seats');
+		    var	textbox_seats = $('#seats_res');
+
+			slider_price.on('change', function() {
+			    var newValue = parseInt($(this).val());    
+				textbox_price.val(newValue);
+			});
+
+			textbox_price.on('change', function() {
+			    var newValue = parseInt($(this).val());
+				slider_price.val(newValue);
+			});
+
+			slider_seats.on('change', function() {
+			    var newValue = parseInt($(this).val());    
+				textbox_seats.val(newValue);
+			});
+
+			textbox_seats.on('change', function() {
+			    var newValue = parseInt($(this).val());
+				slider_seats.val(newValue);
+			});
+		}
+		</script>
+		<script type="text/javascript">
+		
+			 $(document).ready(function() {
+	            var formular = $('#fahrtErstellen');
+	            //Submit-Handler für das Forumlar
+	            $(formular).submit(function() {                
+	                //Default-Action des Formulars wird unterbunden
+	                event.preventDefault();
+	                //Datenobjekt zusammenbauen
+	                var data = {
+	                    from: $('#from').val(),
+	                    to: $('#to').val(),
+	                    date: $('#date').val(),
+	                    time: $('#time').val(),
+	                    price: $('#price').val(),
+	                    vehicle: $('#vehicle').val(),
+	                    seats: $('#seats').val(),
+	                    email: $('#email').val()
+	                };
+	                //Ajax-Request mit POST auf die Ressource mitfahrgelegenheit-angebote
+	                var request = $.ajax({
+	                    type: 'POST',
+	                    url: '/fahrt-anbieten',
+	                    data: JSON.stringify(data),
+	                    contentType: 'application/json'
+	                });
+	                request.done(function(response, status, header){
+	                    //Formulardaten löschen
+	                	formular.get(0).reset();
+	                	alert(data.from+"  "+data.to' wurde erstellt!');
+	                });
+	                request.fail(function(e){
+	                    alert(data.from+"  "+data.to' konnte nicht erstellt werden');
+	                }); 
+	            });
+				
+	        });
+		</script>
+
+
+		 <title><%= title %></title>
+	</head>
+	<body onload="changeIt()">
+		<header>
+			<h1>Mitfahgelegenheit gesucht?</h1>
+			<nav>
+				<ul>
+					<% navigation.forEach(function(navi){ 
+						if(navi.name == "suche")
+							var naviclass = "suche"
+						else
+							naviclass = "angebot"%>
+				    <li><a href="/<%- navi.name %>" class="<%= naviclass %>"><%- navi.name %></a></li>
+					<% }) %>
+				</ul>
+			</nav>
+		</header>	
+		<section>
+			<div class='content'>
+				Einfach und schnell anderen ermöglichen mit Ihnen mitfahren zu können!<br> 
+				Tragen Sie alle relevanten Daten hier ein:
+			</div>
+			<form action='/fahrt-anbieten' method='POST' class='createFahrt' id='fahrtErstellen'>
+				<div class="box">
+				<div class="box_headline"><h2>Ihre Strecke</h2></div>
+					<input type='text' id='from' name='from' placeholder='Von' class='create_from'><br>
+					<input type='text' id='to' name='to' placeholder='Nach' class='create_to'><br>
+				</div>
+				<div class='box'>
+					<div class="box_headline"><h2>Datum und Uhrzeit</h2></div>
+					<input type="date" name="date" id='date' >
+					<input type='time' id='time' name='time' >
+				</div>
+				<div class='box'>
+					<div class="box_headline"><h2>Preis pro Mitfahrer</h2></div>
+					1€<input type="range" id='price' name='price' min="1" max="30" > 30€
+					<input id="price_res" type='text' size='2' class='dynamic_txt'>
+				</div>
+				<div class='box'>
+					<div class="box_headline"><h2>Fahrzeug</h2></div>
+					<input type="text" id="vehicle" name="vehicle" placeholder='z.B. Seat Leon'>
+				</div>
+				<div class='box '>
+					<div class="box_headline"><h2>freie Plätze</h2></div>
+					1 <input type='range' id='seats' name='seats' min="1" max="8"> 8
+					<input id="seats_res" type='text' size='2' class='dynamic_txt'>
+				</div>
+				<div class='box'>
+					<div class="box_headline"><h2>E-Mail Adresse</h2></div>
+					<input type="email" id="email" name="email">
+				</div>
+				
+				<button type='submit' id='create' class='create_button'>Erstelle Fahrt</button>	
+				
+			</form>
+		</section>
+		<footer>
+
+		</footer>
+	</body>
+</html>

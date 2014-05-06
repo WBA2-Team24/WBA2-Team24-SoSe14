@@ -1,0 +1,83 @@
+<html>
+	<head>
+		
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script> 
+		<script src="scripts/geocomplete.js"></script>
+		<script src="scripts/autocomplete.js"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+		<script type="text/javascript">
+      		$(document).ready(function() {	//wartet bis die Seite vollständig geladen ist
+      
+ 			 //AJAX - Methode 
+	 	    var request = $.ajax({
+	 	          	type: 'GET', 	//gibt den typ an
+	 	          	url: '/fahrtdetail',	//an welche url Datentyp der zu übertragenden Daten
+	 	          	contentType: 'application/json'
+	 	          });
+
+	 	    //AJAX - Methode 
+	 	    var request2 = $.ajax({
+	 	          	type: 'GET', 	//gibt den typ an
+	 	          	url: '/mitfahrgelegenheit-finden',	//an welche url Datentyp der zu übertragenden Daten
+	 	          	contentType: 'application/json'
+	 	          });
+	 	});
+
+		
+
+		</script>
+
+		 <title><%= title %></title>
+	</head>
+	<body>
+		<header>
+			<h1>Mitfahgelegenheit gesucht?</h1>
+			<nav>
+				<ul>
+					<% navigation.forEach(function(navi){ 
+						if(navi.name == "suche")
+							var naviclass = "suche"
+						else
+							naviclass = "angebot"%>
+					    <li><a href="/<%- navi.name %>" class="<%= naviclass %>"><%- navi.name %></a></li>
+					<% }) %>
+				</ul>
+			</nav>
+		</header>
+		<section>
+
+			<div class='content'>Detailansicht </div>
+
+			
+		 			<% 	fahrt.forEach(function(anfrage){ %>
+							    
+						<div class='box'>	
+						Startort:	<%- anfrage.from %> <br><br>
+						Zielort:	<%- anfrage.to %>
+						</div>
+						<div class='box'>
+						Datum:	<%- anfrage.date %> <br><br>
+						Uhrzeit:	<%- anfrage.time %> 
+						</div>
+						<div class='box'>
+						Fahrzeug:	<%- anfrage.vehicle %><br><br>
+						Sitzplätze:	<%- anfrage.seats %>
+						</div>
+			<div class="detail_email">
+				Sie können sich bei dieser E-Mail melden, falls sie Interesse haben: <br> <br>
+				<address>
+   					<a href="mailto:<%- anfrage.email %>"><%- anfrage.email %></a>
+				</address>
+			</div>
+							    
+					<% }); %>
+		 	
+			
+		</section>
+		<footer>
+
+		</footer>
+	</body>
+</html>

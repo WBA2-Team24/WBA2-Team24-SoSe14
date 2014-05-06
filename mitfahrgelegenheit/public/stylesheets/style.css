@@ -1,0 +1,269 @@
+/*
+ * Import nib
+ */
+/*
+ * Grab a custom font from Google
+ */
+@import url("http://fonts.googleapis.com/css?family=Quicksand");
+/*
+ * Nib provides a CSS reset
+ */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  color: #000;
+  background: #fff;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+body {
+  font-family: 'Source Sans Pro';
+  background-color: #fff;
+  color: #444;
+  height: 100%;
+  width: 940px;
+  margin: 0 auto;
+  -webkit-box-shadow: 2px 2px 2px #3d4f5d;
+  box-shadow: 2px 2px 2px #3d4f5d;
+}
+header {
+  font-family: 'Quicksand';
+  height: 80px;
+  padding: 20px 10px 20px 100px;
+  color: #fff;
+  font-size: 18px;
+  border-bottom: 1px solid #000;
+  background-color: #3d4f5d;
+  border-bottom: 1px solid #2b3741;
+  -webkit-box-shadow: 2px 2px 2px #3d4f5d;
+  box-shadow: 2px 2px 2px #3d4f5d;
+}
+header h1 {
+  display: inline;
+  font-size: 25px;
+  padding: 15px;
+}
+header a {
+  font-size: 13px;
+  color: inherit;
+  text-decoration: none;
+  margin: 20px;
+  padding: 15px;
+  font-weight: bold;
+  float: left;
+}
+header a:hover {
+  color: #454545;
+  -webkit-transition-duration: 400ms;
+  -moz-transition-duration: 400ms;
+  -o-transition-duration: 400ms;
+  -ms-transition-duration: 400ms;
+  transition-duration: 400ms;
+}
+header a:active {
+  color: #454545;
+  -webkit-transition-duration: 400ms;
+  -moz-transition-duration: 400ms;
+  -o-transition-duration: 400ms;
+  -ms-transition-duration: 400ms;
+  transition-duration: 400ms;
+}
+header .suche {
+  background-color: #65a706;
+  background: -webkit-linear-gradient(top, #ffbc02, #ff7902);
+  background: -moz-linear-gradient(top, #ffbc02, #ff7902);
+  background: -o-linear-gradient(top, #ffbc02, #ff7902);
+  background: -ms-linear-gradient(top, #ffbc02, #ff7902);
+  background: linear-gradient(to bottom, #ffbc02, #ff7902);
+  display: inline-block;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+header .angebot {
+  background-color: #b75901;
+  background: -webkit-linear-gradient(top, #b9da01, #89c131);
+  background: -moz-linear-gradient(top, #b9da01, #89c131);
+  background: -o-linear-gradient(top, #b9da01, #89c131);
+  background: -ms-linear-gradient(top, #b9da01, #89c131);
+  background: linear-gradient(to bottom, #b9da01, #89c131);
+  display: inline-block;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+section {
+  padding: 20px 0px;
+  background: -webkit-linear-gradient(top, #e0e0e0, #959595);
+  background: -moz-linear-gradient(top, #e0e0e0, #959595);
+  background: -o-linear-gradient(top, #e0e0e0, #959595);
+  background: -ms-linear-gradient(top, #e0e0e0, #959595);
+  background: linear-gradient(to bottom, #e0e0e0, #959595);
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 2px 2px 2px #3d4f5d;
+  box-shadow: 2px 2px 2px #3d4f5d;
+}
+section .content {
+  padding: 60px 0px 20px 40px;
+}
+section .search-form {
+  padding: 15px 15px 15px 40px;
+  float: left;
+}
+section .search-form input[type=text] {
+  padding: 4px 6px;
+  margin-left: 5px;
+  width: 200px;
+  float: left;
+}
+section .search-form .find_button {
+  float: left;
+  padding: 4px 6px;
+  background: -webkit-linear-gradient(top, #ffbc02, #ff7902);
+  background: -moz-linear-gradient(top, #ffbc02, #ff7902);
+  background: -o-linear-gradient(top, #ffbc02, #ff7902);
+  background: -ms-linear-gradient(top, #ffbc02, #ff7902);
+  background: linear-gradient(to bottom, #ffbc02, #ff7902);
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+section .createFahrt input[type=text] {
+  padding: 4px 6px;
+  margin-left: 5px;
+  width: 200px;
+}
+section table {
+  margin-left: 30px;
+  padding: 10px;
+}
+section table th {
+  padding-left: 40px;
+}
+section table tr {
+  padding-top: 5px;
+  padding-left: 40px;
+}
+section table td {
+  padding-left: 40px;
+}
+section .box {
+  padding: 20px 0px 20px 20px;
+  margin: 0px 0px 10px 40px;
+  background-color: #878787;
+  width: 280px;
+  height: 100px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  float: left;
+}
+section .box .box_headline {
+  padding: 5px 5px 5px 25px;
+  margin: 0px 0px 10px -20px;
+  background-color: #fff;
+}
+section .dynamic_txt {
+  padding: 4px 6px;
+  margin-left: 5px;
+  width: 30px;
+}
+section .create_button {
+  float: left;
+  padding: 4px 6px;
+  margin: 50px 0px 10px 100px;
+  background: -webkit-linear-gradient(top, #ffbc02, #ff7902);
+  background: -moz-linear-gradient(top, #ffbc02, #ff7902);
+  background: -o-linear-gradient(top, #ffbc02, #ff7902);
+  background: -ms-linear-gradient(top, #ffbc02, #ff7902);
+  background: linear-gradient(to bottom, #ffbc02, #ff7902);
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+section .detail_email {
+  float: left;
+  margin: 50px 0px 0px 40px;
+}
