@@ -1,12 +1,13 @@
 // Requires
 var express = require('express');
-var faye = require('faye');
+//var faye = require('faye');
 var http = require('http');
 var stylus = require('stylus');
 var nib  = require('nib');
 var ejs = require('ejs');
 var mongoDB = require('mongoskin');
-
+/*
+//Aus mangelder Zeit nicht fertiggestellt
 var dateNow = new Date();
 var year = dateNow.getFullYear();
 var month = dateNow.getMonth()+1;
@@ -20,7 +21,7 @@ else if(month < 9 && day > 9)
 	var act_date = year+'-0'+month+'-1'+day;
 else if(month < 9 && day < 9)
 	var act_date = year+'-0'+month+'-0'+day;
-
+*/
 var f_id;
 
 //Verbindung zur Datenbank herstellen
@@ -71,7 +72,7 @@ app.use(function (err, req, res, next) {
 });
 
 // Nodeadapter konfigurieren
-var bayeux = new faye.NodeAdapter({
+/*var bayeux = new faye.NodeAdapter({
 	mount: '/faye',
 	timeout: 45
 });
@@ -80,9 +81,8 @@ var bayeux = new faye.NodeAdapter({
 bayeux.attach(server);
 
 //PubSub-Client erzeugen
-var pubClient = bayeux.getClient();
+var pubClient = bayeux.getClient();*/
 var search =[{from:"",to:""}];
-var defaultSearch = [{from:"",to:""}];
 //JSON Array für die Navigation der EJS
 var navigation = [
   { name: 'suche' },
@@ -107,7 +107,8 @@ app.get('/fahrt-anbieten', function (req, res, next) {
 });
 
 app.post('/fahrt-anbieten', function (req, res, next) {
-	var id = Math.round(Math.random() * (1000000000 - 1)) + 1;
+	var id = Math.round(Math.random() * (1000000000 - 1)) + 1; //erstelle zufallszahl zwischen 1 und 1 Mrd.
+	//speichere Postwerte in ein JSON-Objekt
 	create = [
 		{
 			"from":req.body.from,
@@ -118,10 +119,9 @@ app.post('/fahrt-anbieten', function (req, res, next) {
 			"vehicle":req.body.vehicle,
 			"seats":req.body.seats,
 			"email":req.body.email,
-			"id": id.toString()
+			"id": id.toString()	//Integer wird zu String gecastet
 		}];
 	
-	//console.log(act_date);
 	if(create[0].from && create[0].to && create[0].date && create[0].time && create[0].price && create[0].seats && create[0].email){
 		//if(create[0].date > act_date){ //eingetragenes Datum mit aktuellem Datum vergleichen
 		eintrag.insert(create, function(error, fahrt) {
@@ -129,24 +129,22 @@ app.post('/fahrt-anbieten', function (req, res, next) {
 			if(error) 
 				next(error);
 
-			else{
-				console.log("ALl: "+JSON.stringify(fahrt));
+			else{ //wenn es keinen DB Fehler gab, dann speichere die ID in eine Variable 
 				f_id = fahrt[0].id;		//ID aus der DB
-				res.redirect('detailansicht/'+f_id); //
+				res.redirect('detailansicht/'+f_id); //lade Ressource detailansicht/:id
 				res.end();
 			}
 		});
 	}	
-	else{
+	else{ //wenn nicht alle Formularfelder eingetragen sind lade Ressource fahrt-anbieten erneut
 		res.redirect('fahrt-anbieten');
 	}
 });
 
 app.get('/detailansicht/:id', function(req, res, next){
 	
-	var ID = req.params.id;	
-	console.log("ID: "+ID);
-	console.log(eintrag.find({id:ID}).toArray(function (err, result) {
+	var ID = req.params.id;	//URI Parameter wird ausgelesen
+	console.log(eintrag.find({id:ID}).toArray(function (err, result) { //es wird nach der ID gesucht
 			//Fehler bei der Datenbankabfrage ist aufgetreten		
 			if (err) {
 				res.writeHead(500, "Es ist ein Fehler aufgetreten");
@@ -158,7 +156,7 @@ app.get('/detailansicht/:id', function(req, res, next){
 				res.render('detailansicht', {
 					title: "Fahrtdetails",
 					navigation: navigation,
-					fahrt: result
+					fahrt: result 	//Fahrtdetails 
 				});
 			}
 		}));
@@ -181,8 +179,8 @@ app.post('/mitfahrgelegenheit-finden', function(req, res){
 });
 // GET um Suchergebnisse anzuzeigen
 app.get('/mitfahrgelegenheit-finden', function (req, res) {
-	if(search == undefined || search[0].from == ""|| search[0].to == ""){
-			store.findAllFahrten(function (err, result) {
+	if(search == undefined || search[0].from == ""|| search[0].to == ""){ //wenn Formular nicht befüllt worden ist
+			store.findAllFahrten(function (err, result) {		//Gebe alle Fahrten aus
 			//Fehler bei der Datenbankabfrage ist aufgetreten
 			if (err) {
 				res.writeHead(500, "Es ist ein Fehler aufgetreten");
@@ -198,7 +196,7 @@ app.get('/mitfahrgelegenheit-finden', function (req, res) {
 			}
 		});
 	}
-	else{
+	else{//sonst suche nach der Eingabe und gebe das Ergebnis an das Template weiter
 		suche.find({from:search[0].from, to:search[0].to}).toArray(function (err, result) {
 			//Fehler bei der Datenbankabfrage ist aufgetreten
 		
